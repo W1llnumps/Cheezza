@@ -1,0 +1,45 @@
+﻿@model IEnumerable<Cheezza.Models.Pizza>
+
+@{
+    ViewData["Title"] = "Ana Sayfa";
+}
+
+<div class="text-center mb-5">
+    <h1 class="display-4 fw-bold text-danger">Cheezza Pizza Menüsü</h1>
+    <p class="lead text-muted">En taze malzemelerle hazırlanan eşsiz lezzetler.</p>
+</div>
+
+<div class="container">
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+        @foreach (var pizza in Model)
+        {
+            <div class="col">
+                <div class="card h-100 shadow-sm border-0">
+                    <img src="@(string.IsNullOrEmpty(pizza.ImageUrl) ? "/images/default-pizza.jpg" : pizza.ImageUrl)" 
+                         class="card-img-top p-2 rounded-4" 
+                         alt="@pizza.Name" 
+                         style="height: 250px; object-fit: cover;">
+                    
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <h5 class="card-title mb-0 fw-bold">@pizza.Name</h5>
+                            <span class="badge bg-success fs-6">@pizza.Price.ToString("C2")</span>
+                        </div>
+                        <p class="card-text text-muted">@pizza.Description</p>
+                    </div>
+                    
+                    <div class="card-footer bg-transparent border-0 pb-3">
+                        @if (pizza.IsAvailable)
+                        {
+                            <button class="btn btn-danger w-100 rounded-pill fw-bold">Sipariş Ver</button>
+                        }
+                        else
+                        {
+                            <button class="btn btn-secondary w-100 rounded-pill fw-bold" disabled>Tükendi</button>
+                        }
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
